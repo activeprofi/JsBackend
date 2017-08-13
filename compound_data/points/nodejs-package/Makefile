@@ -1,7 +1,7 @@
 install: install-deps install-flow-typed
 
 run:
-	npm run babel-node -- 'src/bin/hexlet.js'
+	npm run babel-node -- 'src/bin/hexlet.js' 10
 
 install-deps:
 	yarn
@@ -20,7 +20,7 @@ check-types:
 	npm run flow
 
 lint:
-	npm run eslint -- src test
+	npm run eslint .
 
 publish:
 	npm publish
