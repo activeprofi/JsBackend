@@ -1,9 +1,9 @@
 const invertChar = (char) => {
   if (char.toUpperCase() === char) {
     return char.toLowerCase();
-  } else {
-    return char.toUpperCase();
   }
+
+  return char.toUpperCase();
 };
 
 const invertCase = (str) => {
