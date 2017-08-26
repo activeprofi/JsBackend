@@ -3,7 +3,7 @@ export const getX = point => point((x, y) => x);
 export const getY = point => point((x, y) => y);
 export const toString = point => `(${getX(point)}, ${getY(point)})`;
 export const distance = (p1, p2) => Math.sqrt((getX(p2) - getX(p1)) ** 2 + (getY(p2) - getY(p1)) ** 2);
-// hello
+
 export const quadrant = point => {
     const x = getX(point);
     const y = getY(point);
