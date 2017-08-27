@@ -12,8 +12,10 @@ export const quadrant = (point) => {
   return -1;
 };
 
+const square = x => x ** 2;
+
 export const distance = (point1, point2) =>
-  Math.sqrt((getX(point2) - getX(point1)) ** 2 + (getY(point2) - getY(point1)) ** 2);
+  Math.sqrt(square(getX(point2) - getX(point1)) + square(getY(point2) - getY(point1)));
 
 export const symmetricalPoint = point =>
   makePoint(-getX(point), -getY(point));
