@@ -1,4 +1,4 @@
-import ackermann from '../src/ackermann';
+import ackermann from '../../src/FundamentalsOfProgramming/ackermann';
 
 test('ackermann tests', () => {
   expect(ackermann(0, 0)).toBe(1);

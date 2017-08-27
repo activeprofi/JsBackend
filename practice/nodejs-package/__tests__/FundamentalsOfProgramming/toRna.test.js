@@ -1,4 +1,4 @@
-import toRna from '../src/toRna';
+import toRna from '../../src/FundamentalsOfProgramming/toRna';
 
 test('toRna tests', () => {
   expect(toRna('ACGTGGTCTTAA')).toBe('UGCACCAGAAUU');

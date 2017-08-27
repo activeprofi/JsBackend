@@ -1,4 +1,4 @@
-import reverseString from '../src/reverseString';
+import reverseString from '../../src/FundamentalsOfProgramming/reverseString';
 
 test('reverseString tests', () => {
   expect(reverseString('hello')).toBe('olleh');

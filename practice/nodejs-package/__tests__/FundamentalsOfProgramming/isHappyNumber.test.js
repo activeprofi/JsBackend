@@ -1,4 +1,4 @@
-import isHappyNumber from '../src/isHappyNumber';
+import isHappyNumber from '../../src/FundamentalsOfProgramming/isHappyNumber';
 
 test('isHappyNumber tests', () => {
   expect(isHappyNumber(7)).toBe(true);

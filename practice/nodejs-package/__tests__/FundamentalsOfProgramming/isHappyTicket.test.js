@@ -1,4 +1,4 @@
-import isHappyTicket from '../src/isHappyTicket';
+import isHappyTicket from '../../src/FundamentalsOfProgramming/isHappyTicket';
 
 test('isHappyTicket tests', () => {
   expect(isHappyTicket(385916)).toBe(true);

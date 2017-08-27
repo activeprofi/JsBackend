@@ -1,4 +1,4 @@
-import cube, { sum, sub, sqrt, pow, multi } from '../src/math';
+import cube, { sum, sub, sqrt, pow, multi } from '../../src/FundamentalsOfProgramming/math';
 
 test('math', () => {
   expect(cube(3)).toBe(27);

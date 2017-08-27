@@ -1,4 +1,4 @@
-import reverseInt from '../src/reverseInt';
+import reverseInt from '../../src/FundamentalsOfProgramming/reverseInt';
 
 test('reverseInt tests', () => {
   expect(reverseInt(13)).toBe(31);

@@ -1,4 +1,4 @@
-import formatTime from '../src/formatTime';
+import formatTime from '../../src/FundamentalsOfProgramming/formatTime';
 
 test('formatTime tests', () => {
   expect(formatTime(60)).toBe('01:00');
