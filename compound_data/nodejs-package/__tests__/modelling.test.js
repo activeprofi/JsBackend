@@ -1,7 +1,7 @@
 import { makePoint, toString as pointToString } from 'hexlet-points';
 import { makeSegment, segmentToString, startSegment, endSegment, midPointSegment } from '../src/modelling';
 
-test('pairs', () => {
+test('segmets API', () => {
   const p1 = makePoint(1, 2);
   const p2 = makePoint(5, 6);
   const segment = makeSegment(p1, p2);
