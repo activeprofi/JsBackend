@@ -42,7 +42,7 @@ import { makePoint, getX, getY, toString as pointToString } from 'hexlet-points'
 export const makeSegment = (p1, p2) => pairs.cons(p1, p2);
 export const startSegment = segment => pairs.car(segment);
 export const endSegment = segment => pairs.cdr(segment);
-export const midPoint = (segment) => {
+export const midPointSegment = (segment) => {
   const p1 = startSegment(segment);
   const p2 = endSegment(segment);
 
