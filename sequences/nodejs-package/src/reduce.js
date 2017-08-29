@@ -10,6 +10,7 @@
  reduce((element, acc) => {
  return is('h1', element) ? acc + 1 : acc;
  }, 0, html3); // 2
+
  Реализуйте и экспортируйте функцию emptyTagsCount, которая считает количество пустых тегов. Тип тега задается первым параметром функции.
 
  import { toString } from 'hexlet-pairs-data';
@@ -26,30 +27,23 @@
 */
 
 import { head, tail, isEmpty } from 'hexlet-pairs-data';
-import { node, filter, name, value } from 'hexlet-html-tags';
+import { value, name, is } from 'hexlet-html-tags';
 
-export const reduce = (func, initial, seq) => {
+const reduce = (func, initial, sequence) => {
+  const iter = (seq, acc) => {
+    if (isEmpty(seq)) return acc;
 
-    const iter = (elements, acc) => {
-        if (isEmpty(elements)) {
-            return acc;
-        }
+    return iter(tail(seq), func(head(seq), acc));
+  };
 
-        const element = head(elements);
-        const newAcc = func(element, acc);
-
-        return iter(tail(elements), newAcc);
-    };
-
-    return iter(seq, initial);
+  return iter(sequence, initial);
 };
 
-export const emptyTagsCount = (tag, html) => {
+const emptyTagsCount = (tagName, dom) =>
+  reduce((t, acc) =>
+    (name(t) === tagName && value(t) === ''
+      ? acc + 1
+      : acc),
+  0, dom);
 
-    return reduce((element, acc) => {
-        return tag === name(element) && value(element) === ''
-            ? acc + 1
-            : acc;
-    }, 0, html);
-
-};
+export { reduce, emptyTagsCount };

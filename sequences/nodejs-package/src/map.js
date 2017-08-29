@@ -31,14 +31,14 @@
 import { isEmpty, head, tail, reverse, cons } from 'hexlet-pairs-data';
 import { make, node, value, name } from 'hexlet-html-tags';
 
-const map = (func, html) => {
-  const iter = (dom, acc) => {
-    if (isEmpty(dom)) return reverse(acc);
+const map = (func, sequence) => {
+  const iter = (seq, acc) => {
+    if (isEmpty(seq)) return reverse(acc);
 
-    return iter(tail(dom), cons(func(head(dom)), acc));
+    return iter(tail(seq), cons(func(head(seq)), acc));
   };
 
-  return iter(html, make());
+  return iter(sequence, make());
 };
 
 const reverseStr = (str) => {

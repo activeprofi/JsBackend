@@ -27,26 +27,26 @@
  toString(quotes(dom5)); // ('i am sexy, and i know it', 'live is live');
 */
 
-import { l, isEmpty, head, tail, append, car, cdr, map } from 'hexlet-pairs-data';
-import { is, toString } from 'hexlet-html-tags';
+import { head, tail, isEmpty, reverse, cons } from 'hexlet-pairs-data';
+import { make, is, map, value } from 'hexlet-html-tags';
 
-export const filter = (p, elements) => {
-    const iter = (list, acc) => {
-        if (isEmpty(list)) {
-            return acc;
-        }
+const filter = (p, sequence) => {
+  const iter = (seq, acc) => {
+    if (isEmpty(seq)) return reverse(acc);
 
-        const element = head(list);
+    if (p(head(seq))) {
+      return iter(tail(seq), cons(head(seq), acc));
+    }
 
-        if (p(element)) {
-            return iter(tail(list), append(acc, l(element)));
-        }
+    return iter(tail(seq), acc);
+  };
 
-        return iter(tail(list), acc);
-    };
-
-    return iter(elements, l());
+  return iter(sequence, make());
 };
 
-export const quotes = html =>
-    map(node => tail(node), filter(node => is('blockquote', node), html));
+const quotes = dom =>
+  map(node => value(node),
+    filter(node => is('blockquote', node),
+      dom));
+
+export { filter, quotes };
