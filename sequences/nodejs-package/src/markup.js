@@ -5,35 +5,38 @@
  node - создает новый тег. Содержит два элемента, имя тега и его содержимое.
  append - добавляет элемент в список.
  toString - возвращает текстовое представление html
+ 
  import { make, append, toString, node } from './solution';
 
  const dom1 = make();
  const dom2 = append(dom1, node('h1', 'hello, world'));
  const dom = append(dom2, node('h2', 'header2'));
 
- <h1>hello, world</h1><h2>header2</h2>
+ // <h1>hello, world</h1><h2>header2</h2>
  toString(dom);
 */
 
-import { l, isEmpty, head, tail, cons, toString as toStringList, append as appendLists } from 'hexlet-pairs-data';
+import { cons as consPair, car, cdr } from 'hexlet-pairs';
+import { l, isEmpty, cons as consList, tail, head } from 'hexlet-pairs-data';
 
-export const make = () => l();
+const make = () => l();
 
-export const node = (tagName, text) => cons(tagName, text);
+const node = (tag, inner) => consPair(tag, inner);
 
-export const append = (html, node) => {
-    //return appendLists(html, l(node));
-    return cons(node, html);
+const append = (dom, element) => consList(element, dom);
+
+const toString = (html) => {
+  const iter = (tags, acc) => {
+    if (isEmpty(tags)) return acc;
+
+    const currentNode = head(tags);
+    const tag = car(currentNode);
+    const inner = cdr(currentNode);
+
+    return iter(tail(tags), `<${tag}>${inner}</${tag}>${acc}`);
+  };
+
+  return iter(html, '');
 };
 
-export const toString = html => {
-    if (isEmpty(html)) {
-        return '';
-    }
-
-    const tag = head(html);
-    const tagString = `<${head(tag)}>${tail(tag)}</${head(tag)}>`;
-
-    //return `${tagString}${toString(tail(html))}`;
-    return `${toString(tail(html))}${tagString}`;
-};
+export { make, node, append, toString };

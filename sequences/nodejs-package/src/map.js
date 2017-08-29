@@ -11,8 +11,9 @@
  if (is('h1', element)) {
  return node('h2', value(element));
  }
+
  return element;
-}, dom3);
+ }, dom3);
 
  Реализуйте функцию mirror, которая переворачивает содержимое тегов, так чтобы читать его нужно было справа налево, а не слева направо.
 
@@ -27,46 +28,30 @@
  toString(mirror(dom3));
 */
 
-import { l, isEmpty, cons, head, tail, append } from 'hexlet-pairs-data';
-import { make, node, value, is } from 'hexlet-html-tags';
+import { isEmpty, head, tail, reverse, cons } from 'hexlet-pairs-data';
+import { make, node, value, name } from 'hexlet-html-tags';
 
-export const map = (func, elements) => {
-    const iter = (sequence, acc) => {
-        if (isEmpty(sequence)) {
-            return acc;
-        }
+const map = (func, html) => {
+  const iter = (dom, acc) => {
+    if (isEmpty(dom)) return reverse(acc);
 
-        const newElement = func(head(sequence));
+    return iter(tail(dom), cons(func(head(dom)), acc));
+  };
 
-        return iter(tail(sequence), append(acc, l(newElement)));
-    };
-
-    return iter(elements, l());
+  return iter(html, make());
 };
 
-const reverseString = str => {
-    const length = str.length - 1;
+const reverseStr = (str) => {
+  const iter = (counter, acc) => {
+    if (counter === str.length) return acc;
 
-    const iter = (s, counter, acc) => {
-        if (counter < 0) {
-            return acc;
-        }
+    return iter(counter + 1, str[counter] + acc);
+  };
 
-        return iter(s, counter - 1, `${acc}${s[counter]}`);
-    };
-
-    return iter(str, length, '');
+  return iter(0, '');
 };
 
-export const mirror = elements => {
-    if (isEmpty(elements)) {
-        return null;
-    }
+const mirror = dom =>
+  map(n => node(name(n), reverseStr(value(n))), dom);
 
-    const element = head(elements);
-    const tag = head(element);
-    const value = tail(element);
-    const reversedValue = reverseString(value);
-
-    return cons(cons(tag, reversedValue), mirror(tail(elements)));
-};
+export { map, mirror };
