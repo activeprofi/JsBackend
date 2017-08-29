@@ -26,22 +26,20 @@
  Подсчет слов в тексте: wc(word, text)
 */
 
-import { node, append, make, reduce, filter, map, is, value } from 'hexlet-html-tags';
+import { node, reduce, filter, map, is, value } from 'hexlet-html-tags';
 
-export const extractHeaders = html => {
-    return map(tag => node('p', value(tag)),
-        filter(element => is('h2', element),
-            html));
+const extractHeaders = dom =>
+  map(el => node('p', value(el)),
+    filter(el => is('h2', el), dom));
+
+const wc = (word, text) => {
+  const re = new RegExp(word, 'g');
+  return (String(text).match(re) || []).length;
 };
 
-export const wc = (word, text) => {
-    const re = new RegExp(word, 'g');
-    return (String(text).match(re) || []).length;
-};
+const wordsCount = (tagName, word, dom) =>
+  reduce((t, acc) => wc(word, t) + acc,
+    0, map(n => value(n),
+      filter(n => is(tagName, n), dom)));
 
-export const wordsCount = (tag, word, html) => {
-    return reduce((text, acc) => acc + wc(word, text), 0,
-        map(tag => value(tag),
-            filter(element => is(tag, element),
-                html)));
-};
+export { extractHeaders, wordsCount };

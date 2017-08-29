@@ -68,45 +68,46 @@
 import { isEmpty, isList, head, tail, l, reduce, filter } from 'hexlet-pairs-data';
 import { hasChildren, children, append, is } from 'hexlet-html-tags';
 
-export const countLeaves = tree => {
-    if (isEmpty(tree)) {
-        return 0;
-    }
+export const countLeaves = (tree) => {
+  if (isEmpty(tree)) {
+    return 0;
+  }
 
-    if (!isList(tree)) {
-        return 1;
-    }
+  if (!isList(tree)) {
+    return 1;
+  }
 
-    return countLeaves(head(tree)) + countLeaves(tail(tree));
+  return countLeaves(head(tree)) + countLeaves(tail(tree));
 };
 
 export const select = (query, tree) => {
-    if (isEmpty(tree)) {
-        return l();
+  if (isEmpty(tree)) {
+    return l();
+  }
+
+  const nextLevel = (elements) => {
+    const withChildren = filter(item => hasChildren(item), elements);
+    return reduce((item, result) => append(result, children(item)), l(), withChildren);
+  };
+
+  const iterList = (list, elements, acc) => {
+    if (isEmpty(list)) {
+      return acc;
     }
 
-    const nextLevel = (elements) => {
-        const withChildren = filter(item => hasChildren(item), elements);
-        return reduce((item, result) => append(result, children(item)), l(), withChildren);
-    };
+    const newAcc = filter(item => is(head(list), item), elements);
+    return iterList(tail(list), nextLevel(newAcc), newAcc);
+  };
 
-    const iterList = (list, elements, acc) => {
-        if (isEmpty(list)) {
-            return acc;
-        }
+  const iterMain = (list, elements, acc) => {
+    if (isEmpty(elements)) {
+      return acc;
+    }
 
-        const newAcc = filter(item => is(head(list), item), elements);
-        return iterList(tail(list), nextLevel(newAcc), newAcc);
-    };
+    const nextLevelElements = nextLevel(elements);
+    const newAcc = iterList(list, elements, l());
+    return iterMain(list, nextLevelElements, append(acc, newAcc));
+  };
 
-    const iterMain = (list, elements, acc) => {
-        if (isEmpty(elements)) {
-            return acc;
-        }
-        const nextLevelElements = nextLevel(elements);
-        const newAcc = iterList(list, elements, l());
-        return iterMain(list, nextLevelElements, append(acc, newAcc));
-    };
-
-    return iterMain(query, tree, l());
+  return iterMain(query, tree, l());
 };
