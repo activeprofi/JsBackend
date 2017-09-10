@@ -2008,7 +2008,18 @@ hawk@~3.1.3:
     hoek "2.x.x"
     sntp "1.x.x"
 
-hexlet-pairs-data@^1.0.6:
+hexlet-html-tags@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/hexlet-html-tags/-/hexlet-html-tags-0.2.5.tgz#e107984d83194cd8ae2a91f628f526efc539ae71"
+  dependencies:
+    babel-preset-env "*"
+    babel-preset-flow "*"
+    babel-preset-stage-0 "*"
+    hexlet-pairs "*"
+    hexlet-pairs-data "*"
+    source-map-support "*"
+
+hexlet-pairs-data@*, hexlet-pairs-data@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/hexlet-pairs-data/-/hexlet-pairs-data-1.0.6.tgz#9dca46eceb6f1b0a2ec016c1bbf4701b3b0bbc25"
   dependencies:

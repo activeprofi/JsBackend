@@ -1,10 +1,4 @@
-import { l, head, tail, isEmpty, isList, cons } from 'hexlet-pairs-data';
-
-const append = (list1, list2) => {
-  if (isEmpty(list1)) return list2;
-
-  return cons(head(list1), append(tail(list1), list2));
-};
+import { l, cons, concat, isEmpty, isList, head, tail, reduce, toString, reverse } from 'hexlet-pairs-data';
 
 const flatten = (tree) => {
   if (!isList(tree)) return tree;
@@ -12,11 +6,19 @@ const flatten = (tree) => {
   if (isEmpty(tree)) return l();
 
   if (!isList(head(tree))) {
-    return append(l(head(tree)), flatten(tail(tree)));
+    return concat(l(head(tree)), flatten(tail(tree)));
   }
 
-  return append(flatten(head(tree)), flatten(tail(tree)));
+  return concat(flatten(head(tree)), flatten(tail(tree)));
 
 };
+
+// const flatten = tree =>
+//   reverse(reduce((el, acc) => {
+//     const isItemList = isList(el);
+//     const newAcc = isItemList ? concat(flatten(el), acc) : acc;
+
+//     return isItemList ? newAcc : concat(l(el), newAcc);
+//   }, l(), tree));
 
 export default flatten;
