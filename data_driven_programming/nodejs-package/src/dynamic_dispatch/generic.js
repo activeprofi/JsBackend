@@ -2,6 +2,12 @@ import { typeTag } from '../tagged_data/type';
 import { cons, car, cdr } from 'hexlet-pairs';
 import { l, reduce, cons as consList, head } from 'hexlet-pairs-data';
 
+/*
+  (
+    (typeName, (methodName, methodBody)),
+    ...
+  )
+*/ 
 let table = l();
 
 const getMethod = (self, methodName) => {

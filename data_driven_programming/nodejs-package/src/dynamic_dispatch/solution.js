@@ -1,5 +1,7 @@
-/* card.js
+/* 
+ card.js
  Реализуйте и экспортируйте обобщенную функцию damage.
+
  generic.js
  Реализуйте функцию getMethod, которая производит поиск конкретной реализации функции для переданного типа.
 
@@ -7,9 +9,8 @@
  Реализуйте интерфейс типа simpleCard.
 */
 
-import { cons, car, cdr, toString as pairToString } from 'hexlet-pairs'; // eslint-disable-line
-import { cons as consList, l, random, head, reverse, toString as listToString } from 'hexlet-pairs-data'; // eslint-disable-line
-import { typeTag } from '../../src/tagged_data/type'; // eslint-disable-line
+import { cons, car } from 'hexlet-pairs';
+import { cons as consList, l, random, head, reverse } from 'hexlet-pairs-data';
 import { getName, damage } from './card';
 
 const run = (player1, player2, cards, customRandom) => {
@@ -23,7 +24,8 @@ const run = (player1, player2, cards, customRandom) => {
     const cardDamage = damage(card, health2);
 
     const newHealth = health2 - cardDamage;
-    const message = `Игрок '${name1}' применил '${cardName}' против '${name2}' и нанес урон '${cardDamage}'`;
+    const message = `Игрок '${name1}' применил '${cardName}' \ 
+      против '${name2}' и нанес урон '${cardDamage}'`;
 
     let stats;
     if (order === 1) {
