@@ -23,14 +23,18 @@ class Enumerable {
   }
 
   orderBy(fn, sortDirection = 'asc') {
-    let operation;
-    if (sortDirection === 'asc') {
-      operation = coll => coll.sort((a, b) => fn(a) - fn(b));
-    } else {
-      operation = coll => coll.sort((a, b) => fn(b) - fn(a));
-    }
+    const order = sortDirection === 'asc' ? 1 : -1;
+    const comparer = (a, b) => {
+      const fnA = fn(a);
+      const fnB = fn(b);
 
-    return this.built(operation);
+      if (fnA > fnB) return order;
+      if (fnA < fnB) return -order;
+
+      return 0;
+    };
+
+    return this.built(coll => coll.sort(comparer));
   }
 
   where(fn) {

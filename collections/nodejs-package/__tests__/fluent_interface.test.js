@@ -8,8 +8,8 @@ describe('HexletLinq', () => {
 
   beforeEach(() => {
     cars = [
-      { brand: 'bmw', model: 'm5', year: 2014 },
       { brand: 'bmw', model: 'm4', year: 2013 },
+      { brand: 'bmw', model: 'm5', year: 2014 },
       { brand: 'kia', model: 'sorento', year: 2014 },
       { brand: 'kia', model: 'rio', year: 2010 },
       { brand: 'kia', model: 'sportage', year: 2012 },
@@ -22,7 +22,7 @@ describe('HexletLinq', () => {
       .where(car => car.brand === 'kia')
       .where(car => car.year > 2011);
 
-    assert.deepEqual(result.toArray(), [cars[2], cars[4]]);
+    expect(result.toArray()).toEqual([cars[2], cars[4]]);
   });
 
   it('#orderBy', () => {
@@ -30,7 +30,14 @@ describe('HexletLinq', () => {
       .where(car => car.brand === 'kia')
       .select(car => car.model);
 
-    assert.deepEqual(result.toArray(), ['rio', 'sportage', 'sorento']);
+    expect(result.toArray()).toEqual(['rio', 'sportage', 'sorento']);
+  });
+
+  it('#stringOrderBy', () => {
+    const result = coll.orderBy(car => car.model)
+      .select(car => car.model);
+
+    expect(result.toArray()).toEqual(['m4', 'm5', 'rio', 'sorento', 'sportage']);
   });
 
   it('#orderByDesc', () => {
@@ -38,12 +45,12 @@ describe('HexletLinq', () => {
       .where(car => car.brand === 'bmw')
       .select(car => car.model);
 
-    assert.deepEqual(result.toArray(), ['m5', 'm4']);
+    expect(result.toArray()).toEqual(['m5', 'm4']);
   });
 
   it('#select', () => {
     const result = coll
       .select(car => car.brand);
-    assert.deepEqual(result.toArray(), ['bmw', 'bmw', 'kia', 'kia', 'kia']);
+    expect(result.toArray()).toEqual(['bmw', 'bmw', 'kia', 'kia', 'kia']);
   });
 });

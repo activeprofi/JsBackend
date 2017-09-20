@@ -14,11 +14,19 @@ class Enumerable {
   }
 
   orderBy(fn, sortDirection = 'asc') {
-    const slicedCollection = this.collection.slice();
+    const order = sortDirection === 'asc' ? 1 : -1;
+    const comparer = (a, b) => {
+      const fnA = fn(a);
+      const fnB = fn(b);
 
-    const sortedCollection = sortDirection === 'asc'
-      ? slicedCollection.sort((a, b) => fn(a) - fn(b))
-      : slicedCollection.sort((a, b) => fn(b) - fn(a));
+      if (fnA > fnB) return order;
+      if (fnA < fnB) return -order;
+
+      return 0;
+    };
+
+    const slicedCollection = this.collection.slice();
+    const sortedCollection = slicedCollection.sort(comparer);
 
     return new Enumerable(sortedCollection);
   }

@@ -52,9 +52,18 @@ class Enumerable {
   }
 
   orderBy(fn, sortDirection = 'asc') {
-    this.collection = sortDirection === 'asc'
-      ? this.collection.sort((a, b) => fn(a) - fn(b))
-      : this.collection.sort((a, b) => fn(b) - fn(a));
+    const order = sortDirection === 'asc' ? 1 : -1;
+    const comparer = (a, b) => {
+      const fnA = fn(a);
+      const fnB = fn(b);
+
+      if (fnA > fnB) return order;
+      if (fnA < fnB) return -order;
+
+      return 0;
+    };
+
+    this.collection = this.collection.sort(comparer);
 
     return this;
   }
