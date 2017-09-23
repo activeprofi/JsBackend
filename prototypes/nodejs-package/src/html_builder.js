@@ -30,26 +30,30 @@
  </html>
 */
 
+const types = {
+  children: arg => arg instanceof Array,
+  attributes: arg => arg instanceof Object,
+  body: arg => typeof arg === 'string',
+};
+
+const getArgType = arg => Object.keys(types).filter(key => types[key](arg))[0];
+
+const buildAttributes = attributes =>
+  Object
+    .keys(attributes)
+    .map(key => ` ${key}="${attributes[key]}"`)
+    .join('');
+
 const buildHtml = (data) => {
-  const tagName = data[0];
-  let html = '';
+  const tag = data
+    .slice(1)
+    .reduce((acc, arg) =>
+      Object.assign(acc, { [getArgType(arg)]: arg }),
+    { tagName: data[0], attributes: {}, body: '', children: [] });
 
-  if (data[1] instanceof Array) {
-    html += `<${tagName}>${buildHtml(data[1])}</${tagName}>`;
-  }
-
-  if (data[1] instanceof Object) {
-    let attributes = '';
-    Object.keys(data[1]).forEach(key => attributes += ` ${key}=${data[1][key]} `);
-
-    html += `<${tagName} ${attributes}></${tagName}>`;
-  }
-
-  if (typeof data[1] === 'string') {
-    html += `<${tagName}>${data[1]}</${tagName}>`;
-  }
-
-  return html;
+  return `<${tag.tagName}${buildAttributes(tag.attributes)}>` +
+         `${tag.body}${tag.children.map(buildHtml).join('')}` +
+         `</${tag.tagName}>`;
 };
 
 export default buildHtml;
