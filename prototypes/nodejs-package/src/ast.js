@@ -35,7 +35,7 @@
  ]}
 */
 
-const singleTagsList = ['br', 'img', 'hr'];
+const singleTagsList = new Set(['br', 'img', 'hr']);
 
 const types = {
   children: arg => arg instanceof Array,
@@ -61,6 +61,6 @@ const parse = data =>
 const render = ast =>
   `<${ast.tagName}${buildAttributes(ast.attributes)}>` +
   `${ast.body}${ast.children.map(tag => render(parse(tag))).join('')}` +
-  `${singleTagsList.includes(ast.tagName) ? '' : `</${ast.tagName}>`}`;
+  `${singleTagsList.has(ast.tagName) ? '' : `</${ast.tagName}>`}`;
 
 export { parse, render };
