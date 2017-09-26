@@ -51,16 +51,37 @@ const buildAttributes = attributes =>
     .map(key => ` ${key}="${attributes[key]}"`)
     .join('');
 
-const parse = data =>
-  data
-    .slice(1)
-    .reduce((acc, arg) =>
-      Object.assign(acc, { [getArgType(arg)]: arg }),
-    { tagName: data[0], attributes: {}, body: '', children: [] });
+// const parse = data =>
+//   data
+//     .slice(1)
+//     .reduce((acc, arg) =>
+//       Object.assign(acc, { [getArgType(arg)]: arg }),
+//     { tagName: data[0], attributes: {}, body: '', children: [] });
+
+const parse = (data) => {
+  const astTag = {
+    tagName: data[0],
+    attributes: {},
+    children: [],
+    body: '',
+  };
+
+  data.slice(1).forEach((item) => {
+    const argType = getArgType(item);
+
+    if (argType === 'children') {
+      astTag[getArgType(item)] = item.map(parse);
+    } else {
+      astTag[getArgType(item)] = item;
+    }
+  });
+
+  return astTag;
+};
 
 const render = ast =>
   `<${ast.tagName}${buildAttributes(ast.attributes)}>` +
-  `${ast.body}${ast.children.map(tag => render(parse(tag))).join('')}` +
+  `${ast.body}${ast.children.map(tag => render(tag)).join('')}` +
   `${singleTagsList.has(ast.tagName) ? '' : `</${ast.tagName}>`}`;
 
 export { parse, render };
