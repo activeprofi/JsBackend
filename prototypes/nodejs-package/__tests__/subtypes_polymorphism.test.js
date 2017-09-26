@@ -1,7 +1,7 @@
 import assert from 'assert';
 // import { describe, it } from 'mocha';
 
-import parse from '../src/subtypes_polymorphism/subtypes_polymorphism';
+import parse from '../src/subtypes_polymorphism/buildNode';
 import PairedTag from '../src/subtypes_polymorphism/PairedTag';
 import SingleTag from '../src/subtypes_polymorphism/SingleTag';
 
@@ -53,8 +53,7 @@ describe('HtmlBuilder', () => {
     ]];
 
     const ast = parse(data);
-    const expected = `<html><head><title>hello, hexlet!</title></head><body><div class="separator"></div><h1 class="header">html builder example</h1><div>
-    <img class="image" href="#"><span>span text2</span></div></body></html>`;
+    const expected = '<html><head><title>hello, hexlet!</title></head><body><div class="separator"></div><h1 class="header">html builder example</h1><div><img class="image" href="#"><span>span text2</span></div></body></html>';
     assert.equal(ast.toString(), expected);
   });
 });

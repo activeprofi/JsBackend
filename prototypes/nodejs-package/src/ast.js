@@ -35,28 +35,23 @@
  ]}
 */
 
-const singleTagsList = new Set(['br', 'img', 'hr']);
+const getArgType = (argument) => {
+  const types = {
+    children: arg => arg instanceof Array,
+    attributes: arg => arg instanceof Object,
+    body: arg => typeof arg === 'string',
+  };
 
-const types = {
-  children: arg => arg instanceof Array,
-  attributes: arg => arg instanceof Object,
-  body: arg => typeof arg === 'string',
+  return Object
+    .keys(types)
+    .filter(key => types[key](argument))[0];
 };
-
-const getArgType = arg => Object.keys(types).filter(key => types[key](arg))[0];
 
 const buildAttributes = attributes =>
   Object
     .keys(attributes)
     .map(key => ` ${key}="${attributes[key]}"`)
     .join('');
-
-// const parse = data =>
-//   data
-//     .slice(1)
-//     .reduce((acc, arg) =>
-//       Object.assign(acc, { [getArgType(arg)]: arg }),
-//     { tagName: data[0], attributes: {}, body: '', children: [] });
 
 const parse = (data) => {
   const astTag = {
@@ -70,14 +65,16 @@ const parse = (data) => {
     const argType = getArgType(item);
 
     if (argType === 'children') {
-      astTag[getArgType(item)] = item.map(parse);
+      astTag[argType] = item.map(parse);
     } else {
-      astTag[getArgType(item)] = item;
+      astTag[argType] = item;
     }
   });
 
   return astTag;
 };
+
+const singleTagsList = new Set(['br', 'img', 'hr']);
 
 const render = ast =>
   `<${ast.tagName}${buildAttributes(ast.attributes)}>` +
