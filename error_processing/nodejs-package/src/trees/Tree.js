@@ -38,4 +38,43 @@ class Tree {
 
     return child;
   }
+
+  hasChildren() {
+    return this.children.size !== 0;
+  }
+
+  hasChild(key) {
+    return this.children.has(key);
+  }
+
+  getKey() {
+    return this.key;
+  }
+
+  getMeta() {
+    return this.meta;
+  }
+
+  getChildren() {
+    return [...this.children.values()];
+  }
+
+  getParent() {
+    return this.parent;
+  }
+
+  getChild(key) {
+    return this.children.get(key);
+  }
+
+  getDeepChild(keys) {
+    return keys.reduce((currentNode, key) =>
+      currentNode && currentNode.getChild(key), this);
+  }
+
+  removeChild(key) {
+    return this.children.delete(key);
+  }
 }
+
+export default Tree;

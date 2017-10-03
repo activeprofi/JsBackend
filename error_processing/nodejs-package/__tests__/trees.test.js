@@ -3,61 +3,61 @@ import assert from 'assert';
 import Tree from '../src/trees/Tree';
 
 describe('Tree', () => {
-    let tree;
+  let tree;
 
-before(() => {
+  beforeAll(() => {
     tree = new Tree('/');
-tree.addChild('var')
-    .addChild('lib')
-    .addChild('run');
-tree.addChild('etc');
-tree.addChild('home');
-});
+    tree.addChild('var')
+      .addChild('lib')
+      .addChild('run');
+    tree.addChild('etc');
+    tree.addChild('home');
+  });
 
-it('#hasChildren', () => {
+  it('#hasChildren', () => {
     assert.ok(tree.hasChildren());
-});
+  });
 
-it('#hasChild', () => {
+  it('#hasChild', () => {
     assert.ok(!tree.hasChild('/'));
-assert.ok(tree.hasChild('etc'));
-});
+    assert.ok(tree.hasChild('etc'));
+  });
 
-it('#getParent', () => {
+  it('#getParent', () => {
     const subtree = tree.getChild('var');
-assert.equal(subtree && subtree.getParent(), tree);
-});
+    assert.equal(subtree && subtree.getParent(), tree);
+  });
 
-it('#getChildren', () => {
+  it('#getChildren', () => {
     const dirs = tree.getChildren().map(child => child.getKey());
-assert.deepEqual(dirs, ['var', 'etc', 'home']);
-});
+    assert.deepEqual(dirs, ['var', 'etc', 'home']);
+  });
 
-it('#getChild', () => {
+  it('#getChild', () => {
     const subtree = tree.getChild('var');
-assert.equal(subtree && subtree.getKey(), 'var');
-});
+    assert.equal(subtree && subtree.getKey(), 'var');
+  });
 
-it('#getChild undefined', () => {
+  it('#getChild undefined', () => {
     const subtree = tree.getChild('undefined');
-assert.equal(subtree, undefined);
-});
+    assert.equal(subtree, undefined);
+  });
 
-it('#getDeepChild', () => {
+  it('#getDeepChild', () => {
     const subtree = tree.getDeepChild(['var', 'lib']);
-assert.equal(subtree && subtree.getKey(), 'lib');
-const parent = subtree && subtree.getParent();
-assert.equal(parent && parent.getKey(), 'var');
-});
+    assert.equal(subtree && subtree.getKey(), 'lib');
+    const parent = subtree && subtree.getParent();
+    assert.equal(parent && parent.getKey(), 'var');
+  });
 
-it('#getDeepChild undefined', () => {
+  it('#getDeepChild undefined', () => {
     const subtree = tree.getDeepChild(['var', 'lib', 'one', 'two']);
-assert.equal(subtree, undefined);
-});
+    assert.equal(subtree, undefined);
+  });
 
-it('#removeChild', () => {
+  it('#removeChild', () => {
     const subtree = tree.getChild('var');
-subtree && subtree.removeChild('lib');
-assert.ok(subtree && !subtree.hasChildren());
-});
+    subtree && subtree.removeChild('lib');
+    assert.ok(subtree && !subtree.hasChildren());
+  });
 });

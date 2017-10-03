@@ -30,7 +30,8 @@
     "gulp": "*",
     "hexlet-pairs": "^1.0.5",
     "hexlet-pairs-data": "^1.0.6",
-    "mocha": "^3.5.0"
+    "mocha": "^3.5.0",
+    "assert": "^1.4.1"
   },
   "devDependencies": {
     "babel-cli": "*",
