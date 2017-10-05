@@ -31,7 +31,9 @@
     "hexlet-pairs": "^1.0.5",
     "hexlet-pairs-data": "^1.0.6",
     "mocha": "^3.5.0",
-    "assert": "^1.4.1"
+    "assert": "^1.4.1",
+    "hexlet-trees": "^0.5.5",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "babel-cli": "*",
