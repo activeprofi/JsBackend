@@ -72,10 +72,9 @@ Vagrant.configure("2") do |config|
     sudo apt-get update
     sudo apt-get install ansible -y
 
-    # nodejs 6.x install
-    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+    # nodejs 8.x install
+    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
     sudo apt-get install -y nodejs
-    sudo apt-get install -y build-essential
 
     # npm self-update
     npm install npm@latest -g
